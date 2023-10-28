@@ -8,3 +8,6 @@ color-modes = true
 insert = "bar"
 normal = "block"
 
+[editor.smart-tab]
+enable = false
+
