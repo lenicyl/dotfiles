@@ -1,8 +1,0 @@
-[Trigger]
-Operation = Upgrade
-Type = Package
-Target = discord-canary
-
-[Action]
-When = PostTransaction
-Exec = /usr/bin/vencordinstallercli -install -branch canary -install-openasar
