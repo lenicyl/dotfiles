@@ -5,4 +5,4 @@ set -x
 stow -t ~ zsh helix
 
 # Extra stuff outside home that requires root
-sudo stow -t /etc/pacman.d pacman
+# sudo stow -t /etc/pacman.d pacman

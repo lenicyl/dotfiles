@@ -1,0 +1,8 @@
+[Trigger]
+Operation = Upgrade
+Type = Package
+Target = discord-canary
+
+[Action]
+When = PreTransaction
+Exec = /usr/bin/vencordinstallercli -uninstall -branch canary -uninstall-openasar
