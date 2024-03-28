@@ -1,0 +1,8 @@
+#!/bin/sh
+set -x
+
+# ~ apps
+stow -t ~ zsh helix
+
+# Extra stuff outside home that requires root
+sudo stow -t /etc/pacman.d pacman
