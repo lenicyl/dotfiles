@@ -1,0 +1,15 @@
+## Verbosity and Overwrite confirm
+alias cp='cp -iv'
+alias mv='mv -iv'
+alias rm='rm -iv'
+
+## Colors
+alias ls='eza --group-directories-first'
+alias ll='eza -la --group-directories-first'
+alias grep='grep --color=auto'
+alias diff='diff --color=auto'
+
+## Short
+alias hx='helix'
+alias sudoedit='EDITOR=helix shx'
+
