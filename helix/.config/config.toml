@@ -1,0 +1,20 @@
+theme = "catppuccin_mocha"
+
+[editor]
+cursorline = true
+color-modes = true
+
+[editor.cursor-shape]
+insert = "bar"
+normal = "block"
+
+[editor.smart-tab]
+enable = false
+
+[keys.normal]
+C-right = "move_next_word_start"
+C-left = "move_prev_word_end"
+
+[keys.insert]
+C-right = "move_next_word_start"
+C-left = "move_prev_word_end"
