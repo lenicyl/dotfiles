@@ -11,5 +11,5 @@ alias diff='diff --color=auto'
 
 ## Short
 alias hx='helix'
-alias sudoedit='EDITOR=helix shx'
+alias shx='EDITOR=helix sudoedit'
 
