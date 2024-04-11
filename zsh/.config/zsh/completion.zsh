@@ -7,6 +7,9 @@ autoload -Uz compinit
 compinit -d $ZCOMPDUMP
 _comp_options+=(globdots)
 
+# Compile completion dump file
+[ $ZCOMPDUMP.zwc -nt $ZCOMPDUMP ] || zcompile $ZCOMPDUMP
+
 ## Cache
 zstyle ':completion:*' use-cache on
 zstyle ':completion:*' cache-path $ZCOMPCACHE
