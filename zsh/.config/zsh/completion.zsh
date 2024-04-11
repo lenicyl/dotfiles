@@ -1,11 +1,15 @@
 ## Load Completion Stuff
+ZCOMPCACHE="$HOME/.cache/zsh/zcompcache"
+ZCOMPDUMP="$ZCOMPCACHE/zcompdump"
+[ -d $ZCOMPCACHE ] || mkdir $ZCOMPCACHE
+
 autoload -Uz compinit 
-compinit -d ~/.cache/zsh/zcompcache
+compinit -d $ZCOMPDUMP
 _comp_options+=(globdots)
 
 ## Cache
 zstyle ':completion:*' use-cache on
-# zstyle ':completion:*' cache-path "~/.cache/zsh/zcompcache"
+zstyle ':completion:*' cache-path $ZCOMPCACHE
 
 zstyle ':completion:*' completer _extensions _complete _approximate                     # Define completers
 zstyle ':completion:*:*:*:*:*' menu select                                              # Completion menu
