@@ -8,7 +8,7 @@ compinit -d $ZCOMPDUMP
 _comp_options+=(globdots)
 
 # Compile completion dump file
-[ $ZCOMPDUMP.zwc -nt $ZCOMPDUMP ] || zcompile $ZCOMPDUMP
+[ ! $ZCOMPDUMP.zwc -nt $ZCOMPDUMP ] && zcompile $ZCOMPDUMP
 
 ## Cache
 zstyle ':completion:*' use-cache on
