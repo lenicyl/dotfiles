@@ -1,2 +1,16 @@
-source ~/.local/share/zsh/fsh/fast-syntax-highlighting.plugin.zsh
-source ~/.local/share/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+ZPLUGDIR="$HOME/.local/share/zsh"
+
+[ ! -d $ZPLUGDIR/fsh ] && {
+  git clone --depth 1 https://github.com/zdharma-continuum/fast-syntax-highlighting $ZPLUGDIR/fsh
+  source $ZPLUGDIR/fsh/fast-syntax-highlighting.plugin.zsh
+}
+
+[ ! -d $ZPLUGDIR/zsh-autosuggestions ] && {
+  git clone --depth 1 https://github.com/zsh-users/zsh-autosuggestions $ZPLUGDIR/zsh-autosuggestions
+  source $ZPLUGDIR/zsh-autosuggestions/zsh-autosuggestions.zsh
+}
+
+autoload -U zrecompile
+for plug in $ZPLUGDIR/{fsh/fast-*,zsh-autosuggestions/{zsh-autosuggestions.zsh,src/**/*.zsh}}; do
+  zrecompile -pq $plug
+done
