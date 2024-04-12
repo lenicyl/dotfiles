@@ -10,4 +10,4 @@ host='#89b4fa'
 cwd='#f9e2af'
 
 precmd_functions+=( prompt_pwd )
-PS1="%F{$user}%n%f@%F{$host}%m%f %F{$cwd}%1v%f%(!.#.>) "
+PS1="%F{$user}%n%f@%F{$host}%m%f %F{$cwd}%1v%f%(?..%F{red})%(!.#.>)%f "
