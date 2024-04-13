@@ -1,14 +1,15 @@
 ## Load Completion Stuff
 ZCOMPCACHE="$HOME/.cache/zsh/zcompcache"
 ZCOMPDUMP="$ZCOMPCACHE/zcompdump"
-[ -d $ZCOMPCACHE ] || mkdir $ZCOMPCACHE
+[ ! -d $ZCOMPCACHE ] && mkdir $ZCOMPCACHE
 
 autoload -Uz compinit 
 compinit -d $ZCOMPDUMP
 _comp_options+=(globdots)
 
 # Compile completion dump file
-[ ! $ZCOMPDUMP.zwc -nt $ZCOMPDUMP ] && zcompile $ZCOMPDUMP
+autoload -Uz zcompare
+zcompare $ZCOMPDUMP
 
 ## Cache
 zstyle ':completion:*' use-cache on
