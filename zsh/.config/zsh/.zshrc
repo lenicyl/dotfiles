@@ -19,6 +19,9 @@ HISTFILE="$HOME/.cache/zsh/history"
 ## Load aliases
 source "$HOME/.config/shell/alias"
 
+# Load functions
+fpath+=("$ZDOTDIR/functions")
+
 ## Source other ZSH config 
 source $ZDOTDIR/bindkey.zsh        
 source $ZDOTDIR/completion.zsh     
