@@ -1,15 +1,15 @@
 ZPLUGDIR="$HOME/.local/share/zsh"
 
-[ ! -d $ZPLUGDIR/fsh ] && 
+[ ! -d $ZPLUGDIR/fsh ] && {
   git clone --depth 1 https://github.com/zdharma-continuum/fast-syntax-highlighting $ZPLUGDIR/fsh
+  zcompile-many $ZPLUGDIR/fsh/fast-* 
+}
 
-[ ! -d $ZPLUGDIR/zsh-autosuggestions ] && 
+[ ! -d $ZPLUGDIR/zsh-autosuggestions ] && {
   git clone --depth 1 https://github.com/zsh-users/zsh-autosuggestions $ZPLUGDIR/zsh-autosuggestions
-
-autoload -Uz zcompare
-for plug in $ZPLUGDIR/{fsh/fast-*~*zwc,zsh-autosuggestions/{zsh-autosuggestions.zsh,src/**/*.zsh}}; do
-  zcompare $plug
-done
+  zcompile-many $ZPLUGDIR/zsh-autosuggestions/{zsh-autosuggestions.zsh,src/**/*.zsh}
+}
+unfunction zcompile-many
 
 source $ZPLUGDIR/fsh/fast-syntax-highlighting.plugin.zsh
 source $ZPLUGDIR/zsh-autosuggestions/zsh-autosuggestions.zsh

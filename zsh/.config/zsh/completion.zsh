@@ -8,8 +8,8 @@ compinit -d $ZCOMPDUMP
 _comp_options+=(globdots)
 
 # Compile completion dump file
-autoload -Uz zcompare
-zcompare $ZCOMPDUMP
+autoload -Uz zcompile-many
+[ $ZCOMPDUMP.zwc -nt $ZCOMPDUMP ] || zcompile-many $ZCOMPDUMP
 
 ## Cache
 zstyle ':completion:*' use-cache on

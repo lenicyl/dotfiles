@@ -23,7 +23,7 @@ source "$HOME/.config/shell/alias"
 fpath+=("$ZDOTDIR/functions")
 
 ## Source other ZSH config 
+source $ZDOTDIR/prompt.zsh         
 source $ZDOTDIR/bindkey.zsh        
 source $ZDOTDIR/completion.zsh     
-source $ZDOTDIR/prompt.zsh         
 source $ZDOTDIR/plugins.zsh        
