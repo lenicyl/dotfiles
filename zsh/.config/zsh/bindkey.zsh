@@ -39,11 +39,8 @@ key[Control-Right]="${terminfo[kRIT5]}"
 [[ -n "${key[Control-Left]}"  ]] && bindkey -- "${key[Control-Left]}"  backward-word
 [[ -n "${key[Control-Right]}" ]] && bindkey -- "${key[Control-Right]}" forward-word
 
-# Weird
-bindkey " " 			magic-space					
-bindkey "\e[3;5~" kill-word							# Ctrl + Del
-bindkey '^H' 			backward-kill-word		# Ctrl + Backspace
-
+# bindkey but not insane
+bindkey " " magic-space
 
 # Finally, make sure the terminal is in application mode, when zle is
 # active. Only then are the values from $terminfo valid.
