@@ -4,8 +4,7 @@ export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_CACHE_HOME="$HOME/.cache"
 
 ## Path
-path+=('/home/lenicyl/.local/share/gem/ruby/3.0.0/bin')
-. "$HOME/.cargo/env"
+path+=("$XDG_DATA_HOME/gem/ruby/3.0.0/bin" "$HOME/.cargo/bin")
 export PATH
 
 ## Default Tools 
