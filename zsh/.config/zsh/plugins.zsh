@@ -11,5 +11,6 @@ ZPLUGDIR="$HOME/.local/share/zsh"
 }
 unfunction zcompile-many
 
+ZSH_AUTOSUGGEST_MANUAL_REBIND=1  
 source $ZPLUGDIR/fsh/fast-syntax-highlighting.plugin.zsh
 source $ZPLUGDIR/zsh-autosuggestions/zsh-autosuggestions.zsh
