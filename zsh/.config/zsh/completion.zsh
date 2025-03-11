@@ -1,7 +1,7 @@
 ## Load Completion Stuff
 ZCOMPCACHE="$HOME/.cache/zsh/zcompcache"
 ZCOMPDUMP="$ZCOMPCACHE/zcompdump"
-[ ! -d $ZCOMPCACHE ] && mkdir $ZCOMPCACHE
+[ ! -d $ZCOMPCACHE ] && mkdir -p $ZCOMPCACHE
 
 autoload -Uz compinit 
 compinit -d $ZCOMPDUMP
