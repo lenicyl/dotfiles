@@ -4,7 +4,9 @@ export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_CACHE_HOME="$HOME/.cache"
 
 ## Path
-path+=("$XDG_DATA_HOME/gem/ruby/3.0.0/bin" "$HOME/.cargo/bin")
+export CARGO_HOME="$HOME/.local/src/cargo"
+export RUSTUP_HOME="$HOME/.local/src/rustup"
+path+=("$XDG_DATA_HOME/gem/ruby/3.0.0/bin" "$CARGO_HOME/bin")
 export PATH
 
 ## Default Tools 
