@@ -9,8 +9,3 @@ alias ls='$ls --group-directories-first --color'
 alias ll='$ls -la --group-directories-first --color'
 alias grep='grep --color=auto'
 alias diff='diff --color=auto'
-
-## Short
-alias hx='helix'
-alias shx='EDITOR=helix sudoedit'
-
