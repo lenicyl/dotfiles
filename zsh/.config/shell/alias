@@ -4,8 +4,9 @@ alias mv='mv -iv'
 alias rm='rm -iv'
 
 ## Colors
-alias ls='eza --group-directories-first'
-alias ll='eza -la --group-directories-first'
+ls=$(command -v eza >/dev/null && echo eza || echo ls)
+alias ls='$ls --group-directories-first --color'
+alias ll='$ls -la --group-directories-first --color'
 alias grep='grep --color=auto'
 alias diff='diff --color=auto'
 
