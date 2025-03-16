@@ -19,6 +19,9 @@ HISTFILE="$HOME/.cache/zsh/history"
 ## Load aliases
 source "$HOME/.config/shell/alias"
 
+## XDG Base Directory Cleanup (TODO)
+source "$HOME/.config/shell/xdgbase"
+
 # Load functions
 fpath+=("$ZDOTDIR/functions")
 
