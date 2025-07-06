@@ -1,0 +1,88 @@
+{
+  "modules-left": [
+    "niri/workspaces",
+    "niri/window",
+  ],
+  "modules-right": [
+    "tray",
+    "network",
+    "wireplumber",
+    "memory",
+    "cpu",
+    "backlight",
+    "battery",
+    "clock#date",
+    "clock#time"
+  ],
+
+  "niri/workspaces": {
+    "current-only": true,
+    "disable-click": true
+  },
+
+  "tray": {
+    "spacing": 10
+  },
+
+  "network": {
+    "interval": 30,
+    "format-wifi": "  {essid} ({signalStrength}%)",
+    "format-disconnected": "⚠ Disconnected",
+    "tooltip-format": "{ifname}: {ipaddr}",
+  },
+
+  "wireplumber": {
+    "format": "{icon}  {volume}%",
+    "format-muted": "",
+    "on-click": "pavucontrol",
+    "format-icons": ["", "", ""]
+  },
+
+  "memory": {
+    "interval": 30,
+    "format": "  {}%",
+    "states": {
+      "warning": 70,
+      "critical": 90
+    }
+  },
+
+  "cpu": {
+    "interval": 10,
+    "format": "  {}%",
+    "states": {
+      "warning": 70,
+      "critical": 90
+    }
+  },
+  
+  "backlight": {
+    "device": "intel_backlight",
+    "format": "{icon}  {percent}%",
+    "format-icons": ["", ""]
+  },
+
+  "battery": {
+    "interval": 30,
+    "states": {
+      "warning": 30,
+      "critical": 20
+    },
+    "format": "{icon}  {capacity}%",
+    "format-icons": ["", "", "", "", ""],
+    "max-length": 25
+  },
+
+  "clock#date": {
+    "format": "{:%a, %b %d}",
+    "format-alt": "{:%d-%m-%Y}",
+    "tooltip": false
+  },
+
+  "clock#time": {
+    "format": "{:%I:%M %p}",
+    "tooltip": false
+  }
+
+  
+}
