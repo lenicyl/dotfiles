@@ -368,6 +368,8 @@ binds {
     XF86AudioLowerVolume allow-when-locked=true { spawn "~/.config/mako/scripts/wp-vol" "-v" "0.05-"; }
     XF86AudioMute        allow-when-locked=true { spawn "~/.config/mako/scripts/wp-vol" "-m"; }
     XF86AudioMicMute     allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SOURCE@" "toggle"; }
+    XF86MonBrightnessUp  allow-when-locked=true { spawn "~/.config/mako/scripts/bright"; }
+    XF86MonBrightnessDown  allow-when-locked=true { spawn "~/.config/mako/scripts/bright"; }
     // XF86AudioRaiseVolume allow-when-locked=true { spawn "~/.config/mako/scripts/wp-vol" "0.05+"; }
     // XF86AudioLowerVolume allow-when-locked=true { spawn "~/.config/mako/scripts/wp-vol" "0.05-"; }
     // XF86AudioMute        allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"; }
