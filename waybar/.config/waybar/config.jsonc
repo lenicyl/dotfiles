@@ -7,8 +7,8 @@
     "tray",
     "network",
     "wireplumber",
-    "memory",
-    "cpu",
+    // "memory",
+    // "cpu",
     "backlight",
     "battery",
     "clock#date",
@@ -59,7 +59,7 @@
   "backlight": {
     "device": "intel_backlight",
     "format": "{icon}  {percent}%",
-    "format-icons": ["", ""]
+    "format-icons": ["", "", "", "", "", "", "", "", ""]
   },
 
   "battery": {
