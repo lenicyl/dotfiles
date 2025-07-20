@@ -26,13 +26,13 @@
 
   "network": {
     "interval": 30,
-    "format-wifi": "  {essid} ({signalStrength}%)",
+    "format-wifi": " {essid} ({signalStrength}%)",
     "format-disconnected": "⚠ Disconnected",
     "tooltip-format": "{ifname}: {ipaddr}",
   },
 
   "wireplumber": {
-    "format": "{icon}  {volume}%",
+    "format": "{icon} {volume}%",
     "format-muted": "",
     "on-click": "pavucontrol",
     "format-icons": ["", "", ""]
@@ -40,7 +40,7 @@
 
   "memory": {
     "interval": 30,
-    "format": "  {}%",
+    "format": " {}%",
     "states": {
       "warning": 70,
       "critical": 90
@@ -49,7 +49,7 @@
 
   "cpu": {
     "interval": 10,
-    "format": "  {}%",
+    "format": " {}%",
     "states": {
       "warning": 70,
       "critical": 90
@@ -58,7 +58,7 @@
   
   "backlight": {
     "device": "intel_backlight",
-    "format": "{icon}  {percent}%",
+    "format": "{icon} {percent}%",
     "format-icons": ["", "", "", "", "", "", "", "", ""]
   },
 
@@ -68,7 +68,7 @@
       "warning": 30,
       "critical": 20
     },
-    "format": "{icon}  {capacity}%",
+    "format": "{icon} {capacity}%",
     "format-icons": ["", "", "", "", ""],
     "max-length": 25
   },
@@ -83,6 +83,4 @@
     "format": "{:%I:%M %p}",
     "tooltip": false
   }
-
-  
 }
