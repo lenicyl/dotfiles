@@ -5,6 +5,7 @@
   ],
   "modules-right": [
     "tray",
+    "idle_inhibitor",
     "network",
     "wireplumber",
     // "memory",
@@ -22,6 +23,14 @@
 
   "tray": {
     "spacing": 10
+  },
+
+  "idle_inhibitor": {
+    "format": "{icon}",
+    "format-icons": {
+      "activated": "",
+      "deactivated": ""
+    }
   },
 
   "network": {
