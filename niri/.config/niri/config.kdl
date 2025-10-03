@@ -269,7 +269,7 @@ spawn-at-startup "mako"
 spawn-at-startup "xwayland-satellite"
 
 spawn-at-startup "swaybg" "-m" "fill" "-i" "/home/lenicyl/Wallpapers/Orange/Albert Bierstadt - Sunlight and Shadow.jpg"
-
+spawn-at-startup "swayidle"
 spawn-at-startup "syncthing" "--no-browser" "--logfile=default"
 
 environment {
@@ -355,7 +355,7 @@ binds {
 
     // Suggested binds for running programs: terminal, app launcher, screen locker.
     Mod+T hotkey-overlay-title="Open a Terminal: alacritty" { spawn "alacritty"; }
-    Mod+D hotkey-overlay-title="Run an Application: fuzzel" { spawn "fuzzel"; }
+    Mod+Space hotkey-overlay-title="Run an Application: fuzzel" { spawn "fuzzel"; }
     Ctrl+Alt+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn "swaylock"; }
 
     // You can also use a shell. Do this if you need pipes, multiple commands, etc.
@@ -379,6 +379,7 @@ binds {
     // You can also move the mouse into the top-left hot corner,
     // or do a four-finger swipe up on a touchpad.
     Mod+O repeat=false { toggle-overview; }
+    Mod+Tab repeat=false { toggle-overview; }
 
     Mod+Q { close-window; }
 
