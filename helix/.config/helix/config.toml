@@ -16,3 +16,5 @@ enable = false
 J = "select_line_below"
 K = "select_line_above"
 
+[keys.normal."\\"]
+space = ":toggle whitespace.render all none"
