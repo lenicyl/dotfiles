@@ -1,6 +1,3 @@
 [submodule "mpv/.config/mpv/scripts/videoclip"]
 	path = mpv/.config/mpv/scripts/videoclip
 	url = https://github.com/Lemmmy/videoclip.git
-[submodule "mpv/.config/mpv/scripts/thumbfast"]
-	path = mpv/.config/mpv/scripts/thumbfast
-	url = https://github.com/po5/thumbfast
