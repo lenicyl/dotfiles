@@ -1,1 +1,1 @@
-../thumbfast/thumbfast.lua
+../scripts-src/thumbfast/thumbfast.lua
