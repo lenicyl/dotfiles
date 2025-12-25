@@ -1,16 +1,18 @@
 #!/usr/bin/env bash
 
-command() {
-  case $1 in
-    "Lock") swaylock;;
-    "Suspend") sudo zzz;;
-    "Log Out") niri msg action quit -s;;
-    "Reboot") sudo shutdown -r now;;
-    "Shutdown") sudo shutdown -P now;;
-  esac
-}
+SELECTION=$( echo -e "Lock\nSuspend\nLogout\nReboot\nShutdown" |
+  fuzzel --dmenu --minimal-lines --hide-prompt \
+    --border-width=4 --border-radius=0 --horizontal-pad=10 \
+    --border-color="e64940ff"          \
+    --background="1d1f21ff"            \
+    --match-color="c55555ff"           \
+    --selection-color="2e2e2bff"       \
+    --selection-match-color="c55555ff" )
 
-selection=$(echo -e "Lock\nSuspend\nLog Out\nReboot\nShutdown" | fuzzel --dmenu)
-[[ -n $selection ]] && 
-[[ $(echo -e "Yes\nNo" | fuzzel --dmenu -p "Do you want to $selection ?") = "Yes" ]] && command $selection
-
+case $SELECTION in
+  "Lock")      swaylock;;
+  "Suspend")   loginctl suspend;;
+  "Logout")    niri msg action quit -s;;
+  "Reboot")    loginctl reboot;;
+  "Shutdown")  loginctl poweroff;;
+esac
