@@ -1,3 +1,4 @@
+#!/bin/sh
 ### Environment variables for all shells
 
 export XDG_CONFIG_HOME="$HOME/.config"
@@ -10,6 +11,7 @@ export PATH="$HOME/.local/bin:$CARGO_HOME/bin:$PATH"
 
 export ANDROID_SDK_ROOT="$HOME/.local/dev/android"
 export PATH="$ANDROID_SDK_ROOT/cmdline-tools/latest/bin:$PATH"
+export PATH="$ANDROID_SDK_ROOT/platform-tools:$PATH"
 
 export FLUTTER_HOME="$HOME/.local/dev/flutter"
 export PATH="$FLUTTER_HOME/bin:$PATH"
@@ -18,5 +20,6 @@ export PATH="$FLUTTER_HOME/bin:$PATH"
 export EDITOR="hx"
 export BROWSER="firefox"
 
-# I dont use X11 but sddm does
-XCURSOR_SIZE=64
+# Change the color of "Other writable files" on ls command
+# to make it more readable on alacritty
+LS_COLORS=$LS_COLORS:"ow=30;42:"

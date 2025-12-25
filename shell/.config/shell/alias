@@ -1,0 +1,28 @@
+#!/bin/sh
+
+## Verbosity and Overwrite confirm
+alias cp='cp -iv'
+alias mv='mv -iv'
+alias rm='rm -iv'
+
+## Colors
+alias ls='ls --group-directories-first --color=auto'
+alias ll='ls -l --almost-all --human-readable'
+alias grep='grep --color=auto'
+alias diff='diff --color=auto'
+
+# Utils
+
+mkcd() {
+  mkdir -p -- "$1" && cd "$1"
+}
+
+tempd() {
+  cd "$(mktemp -d)"
+  chmod -R 0700 .
+  if [[ $# -eq 1 ]]; then
+    \mkdir -p "$1"
+    cd "$1"
+    chmod -R 0700 .
+  fi
+}
