@@ -1,4 +1,4 @@
-timeout 500 'brightnessctl s 15%' resume 'brightnessctl -r'
+timeout 500 'brightnessctl set 15% --save' resume 'brightnessctl --restore'
 
 timeout 525 'swaylock -f'
 
