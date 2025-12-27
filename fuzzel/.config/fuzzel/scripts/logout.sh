@@ -11,7 +11,7 @@ SELECTION=$( echo -e "Lock\nSuspend\nLogout\nReboot\nShutdown" |
 
 case $SELECTION in
   "Lock")      swaylock;;
-  "Suspend")   loginctl suspend;;
+  "Suspend")   swaylock -f; loginctl suspend;;
   "Logout")    niri msg action quit -s;;
   "Reboot")    loginctl reboot;;
   "Shutdown")  loginctl poweroff;;
