@@ -1,9 +1,7 @@
 #!/bin/sh
-# Acpi my beloved manages brightness on its own so this just displays the change
 
-for backlight in /sys/class/backlight/*/; do
-    current_brightness=$(cat "$backlight/brightness")
-    max_brightness=$(cat "$backlight/max_brightness")
-    brightness=$(( current_brightness*100/max_brightness ))
-    notify-send -t 1000 -a 'bright' -h int:value:$brightness "Brightness: ${brightness}%"
-done
+brightnessctl set "$1"
+current_brightness=$(brightnessctl get)
+max_brightness=$(brightnessctl max)
+brightness=$(( current_brightness*100/max_brightness ))
+notify-send -t 1000 -a 'bright' -h int:value:$brightness "Brightness: ${brightness}%"

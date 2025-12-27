@@ -1,6 +1,7 @@
 background-color=#181825
 border-color=#2a2a3a
 text-color=#e88f66
+default-timeout=5000
 
 [app-name=wp-vol]
 layer=overlay
