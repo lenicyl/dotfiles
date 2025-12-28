@@ -2,7 +2,7 @@
 ### Environment variables for all shells
 
 # Prompt (Default with Green)
-export PS1="\[\e[01;32m\]\u@\h\[\e[01;34m\] \w \$\[\e[00m\]"
+export PS1="\[\e[01;32m\]\u@\h\[\e[01;34m\] \w \$\[\e[00m\] "
 
 # Programs
 export EDITOR="hx"
