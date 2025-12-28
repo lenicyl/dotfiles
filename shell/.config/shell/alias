@@ -11,6 +11,8 @@ alias ll='ls -l --almost-all --human-readable'
 alias grep='grep --color=auto'
 alias diff='diff --color=auto'
 
+alias ssh='TERM=xterm-256color ssh'
+
 # Utils
 
 mkcd() {
@@ -21,7 +23,7 @@ tempd() {
   cd "$(mktemp -d)"
   chmod -R 0700 .
   if [[ $# -eq 1 ]]; then
-    \mkdir -p "$1"
+    mkdir -p "$1"
     cd "$1"
     chmod -R 0700 .
   fi

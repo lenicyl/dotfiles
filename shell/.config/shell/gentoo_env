@@ -1,0 +1,25 @@
+#!/bin/sh
+### Environment variables for all shells
+
+# Prompt (Default with Green)
+export PS1="\[\e[01;32m\]\u@\h\[\e[01;34m\] \w \$\[\e[00m\]"
+
+# Programs
+export EDITOR="hx"
+export BROWSER="firefox"
+
+# Change the color of "Other writable files" on ls command
+# to make it more readable on alacritty
+LS_COLORS=$LS_COLORS:"ow=30;42:"
+
+# Path
+export CARGO_HOME="$HOME/.local/src/cargo"
+export RUSTUP_HOME="$HOME/.local/src/rustup"
+export PATH="$HOME/.local/bin:$CARGO_HOME/bin:$PATH"
+
+export ANDROID_SDK_ROOT="$HOME/.local/dev/android"
+export PATH="$ANDROID_SDK_ROOT/cmdline-tools/latest/bin:$PATH"
+export PATH="$ANDROID_SDK_ROOT/platform-tools:$PATH"
+
+export FLUTTER_HOME="$HOME/.local/dev/flutter"
+export PATH="$FLUTTER_HOME/bin:$PATH"
