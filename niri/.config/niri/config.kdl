@@ -93,7 +93,8 @@ window-rule {
     match app-id="org.keepassxc.KeePassXC" \
     title="Unlock Database - KeePassXC" \
     title="KeePassXC - Browser Access Request" \
-    title="KeePassXC - Passkey credentials"
+    title="KeePassXC - Passkey credentials" \
+    title="Unlock Database - KeePassXC"
     open-focused true
 }
 
