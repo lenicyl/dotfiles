@@ -1,4 +1,4 @@
-[submodule "mpv/dot-config/mpv/scripts/videoclip"]
+[submodule "mpv/dot-config/mpv/scripts-src/videoclip"]
 	path = mpv/dot-config/mpv/scripts-src/videoclip
 	url = https://github.com/Lemmmy/videoclip.git
 [submodule "mpv/dot-config/mpv/scripts-src/thumbfast"]
