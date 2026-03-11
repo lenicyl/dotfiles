@@ -16,7 +16,9 @@
       kept-new-versions 6
       kept-old-versions 2
       backup-directory-alist
-      `(("." . ,(expand-file-name "backups/" user-emacs-directory))))
+      `(("." . ,(expand-file-name "backups/" user-emacs-directory)))
+      auto-save-file-name-transforms
+      `((".*" ,(expand-file-name "auto-save/" user-emacs-directory) t)))
 
 
 ;;; Packages Setup
@@ -25,10 +27,14 @@
 (package-initialize)
 
 (use-package ef-themes :ensure t)
-
+(use-package magit :ensure t)
 
 ;;; Local Configuration
 ;; Excluded from git since i dont want to be pushing my configuration
 ;; everytime i change something insignificant such as my current
 ;; preferred theme
 (load (expand-file-name "local.el" user-emacs-directory))
+
+;; Custom File
+(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
+(load custom-file)
