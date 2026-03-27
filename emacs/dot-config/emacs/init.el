@@ -38,3 +38,15 @@
 ;; Custom File
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (load custom-file)
+
+
+;;; Custom Behaviour
+(defun duplicate-line-follow ()
+  "Duplicate current line and move to it"
+  (interactive)
+  (duplicate-line)
+  (next-logical-line))
+
+
+;;; Keybindings
+(global-set-key (kbd "C-,") 'duplicate-line-follow)
