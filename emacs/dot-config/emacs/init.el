@@ -6,6 +6,7 @@
 (menu-bar-mode -1)
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
+(electric-pair-mode t)
 (setq inhibit-startup-screen t)
 
 
@@ -28,6 +29,8 @@
 
 (use-package ef-themes :ensure t)
 (use-package magit :ensure t)
+(use-package ace-jump-mode :ensure t)
+(use-package ace-window :ensure t)
 
 ;;; Local Configuration
 ;; Excluded from git since i dont want to be pushing my configuration
@@ -50,3 +53,10 @@
 
 ;;; Keybindings
 (global-set-key (kbd "C-,") 'duplicate-line-follow)
+(global-set-key (kbd "M-o") 'ace-window)
+
+
+;;; Tramp
+(setq tramp-use-scp-direct-remote-copying t
+      remote-file-name-inhibit-locks t)
+(put 'dired-find-alternate-file 'disabled nil)
