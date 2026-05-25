@@ -31,6 +31,7 @@
 (use-package magit :ensure t)
 (use-package ace-jump-mode :ensure t)
 (use-package ace-window :ensure t)
+(setq aw-scope 'frame)
 
 ;;; Local Configuration
 ;; Excluded from git since i dont want to be pushing my configuration
