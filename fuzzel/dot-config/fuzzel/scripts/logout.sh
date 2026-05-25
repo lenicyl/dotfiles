@@ -11,8 +11,8 @@ SELECTION=$( echo -e "Lock\nSuspend\nLogout\nReboot\nShutdown" |
 
 case $SELECTION in
   "Lock")      swaylock;;
-  "Suspend")   swaylock -f; loginctl suspend;;
+  "Suspend")   swaylock -f; systemctl suspend;;
   "Logout")    niri msg action quit -s;;
-  "Reboot")    loginctl reboot;;
-  "Shutdown")  loginctl poweroff;;
+  "Reboot")    systemctl reboot;;
+  "Shutdown")  systemctl poweroff;;
 esac

@@ -4,4 +4,4 @@ timeout 525 'swaylock -f'
 
 timeout 550 'niri msg action power-off-monitors'
 
-timeout 600 'loginctl suspend'
+timeout 600 'systemctl suspend'
