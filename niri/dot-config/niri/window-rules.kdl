@@ -1,0 +1,26 @@
+window-rule {
+    match app-id=r#"firefox$"# title="^Picture-in-Picture$"
+    open-floating true
+}
+
+window-rule {
+    match app-id="org.fooyin.fooyin" title="Search Playlist"
+    open-floating true
+}
+
+window-rule {
+    match app-id="org.keepassxc.KeePassXC" title="Unlock Database - KeePassXC"
+    match app-id="org.keepassxc.KeePassXC" title="KeePassXC - Passkey credentials"
+    open-focused true
+    open-floating true
+}
+
+window-rule {
+    match app-id="org.keepassxc.KeePassXC"
+    block-out-from "screen-capture"
+}
+
+window-rule {
+    match app-id="com.github.hluk.copyq"
+    open-floating true
+}
