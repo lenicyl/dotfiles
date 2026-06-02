@@ -3,6 +3,7 @@
   "exclusive": false,
   "on-sigusr1": "hide",
   "on-sigusr2": "show",
+  "start_hidden": true,
 
   "modules-left": [
     "niri/workspaces",
