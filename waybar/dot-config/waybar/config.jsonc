@@ -1,4 +1,9 @@
 {
+  "layer": "top",
+  "exclusive": false,
+  "on-sigusr1": "hide",
+  "on-sigusr2": "show",
+
   "modules-left": [
     "niri/workspaces",
     "niri/window",
@@ -67,8 +72,8 @@
   
   "backlight": {
     "device": "intel_backlight",
-    "format": "{icon} {percent}%",
-    "format-icons": ["", "", "", "", "", "", "", "", ""]
+    "format-icons": [""],
+    "format": "{icon} {percent}%"
   },
 
   "battery": {
