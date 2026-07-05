@@ -56,7 +56,7 @@ spawn-sh-at-startup "~/.config/waybar/waybar_niri_overview_toggle.sh"
 
 
 environment {
-    QT_QPA_PLATFORMTHEME "qt6ct"
+    QT_QPA_PLATFORMTHEME "kde"
 }
 
 cursor {
