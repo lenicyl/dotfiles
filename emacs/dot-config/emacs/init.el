@@ -9,6 +9,7 @@
 (electric-pair-mode t)
 (setq inhibit-startup-screen t)
 
+(global-completion-preview-mode 1)
 
 ;;; Backups
 (setq backup-by-copying t
