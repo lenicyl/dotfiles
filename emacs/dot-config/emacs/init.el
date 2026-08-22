@@ -41,11 +41,11 @@
 ;; Excluded from git since i dont want to be pushing my configuration
 ;; everytime i change something insignificant such as my current
 ;; preferred theme
-(load (expand-file-name "local.el" user-emacs-directory))
+(load (expand-file-name "local.el" user-emacs-directory) t)
 
 ;; Custom File
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
-(load custom-file)
+(load custom-file t)
 
 
 ;;; Custom Behaviour
