@@ -38,6 +38,12 @@
 (use-package ace-window :ensure t)
 (setq aw-scope 'frame)
 
+(use-package eglot
+  :bind (:map eglot-mode-map
+	      ("C-c l a" . eglot-code-actions)
+	      ("C-c l r" . eglot-rename)
+	      ("C-c l f" . eglot-format)))
+
 ;;; Local Configuration
 ;; Excluded from git since i dont want to be pushing my configuration
 ;; everytime i change something insignificant such as my current
