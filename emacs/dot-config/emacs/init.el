@@ -21,6 +21,10 @@
       auto-save-file-name-transforms
       `((".*" ,(expand-file-name "auto-save/" user-emacs-directory) t)))
 
+(let ((backup-dir (expand-file-name "backups/" user-emacs-directory))
+      (auto-save-dir (expand-file-name "auto-save/" user-emacs-directory)))
+  (unless (file-exists-p backup-dir) (make-directory backup-dir t))
+  (unless (file-exists-p auto-save-dir) (make-directory auto-save-dir t)))
 
 ;;; Packages Setup
 (require 'package)
