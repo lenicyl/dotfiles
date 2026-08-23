@@ -42,6 +42,12 @@
     (unless (file-exists-p auto-save-dir) (make-directory auto-save-dir t)))
 
 #+end_src
+** Tabs
+Set tab as 4 spaces instead of 2 in =cc-mode= based languages
+#+begin_src emacs-lisp
+  (setq-default c-basic-offset 4)
+#+end_src
+
 * Packages
 ** Initialise Packages
 #+begin_src emacs-lisp
