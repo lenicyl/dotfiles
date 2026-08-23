@@ -1,0 +1,126 @@
+#+property: header-args :tangle "init.el"
+
+* Appearance
+** Turn off Annoyances
+#+begin_src emacs-lisp
+  (setq inhibit-startup-screen t)
+  (blink-cursor-mode -1)
+  (menu-bar-mode -1)
+  (tool-bar-mode -1)
+  (scroll-bar-mode -1)
+#+end_src
+
+** Line Numbers
+#+begin_src emacs-lisp
+  (global-display-line-numbers-mode 1)
+#+end_src
+
+* Behaviour
+** Auto Brackets
+#+begin_src emacs-lisp
+  (electric-pair-mode t)
+#+end_src
+** Completion
+#+begin_src emacs-lisp
+  (global-completion-preview-mode 1)
+#+end_src
+** Backups
+#+begin_src emacs-lisp
+  (setq backup-by-copying t
+        delete-old-versions t
+        version-control t
+        kept-new-versions 6
+        kept-old-versions 2
+        backup-directory-alist
+        `(("." . ,(expand-file-name "backups/" user-emacs-directory)))
+        auto-save-file-name-transforms
+        `((".*" ,(expand-file-name "auto-save/" user-emacs-directory) t)))
+
+  (let ((backup-dir (expand-file-name "backups/" user-emacs-directory))
+        (auto-save-dir (expand-file-name "auto-save/" user-emacs-directory)))
+    (unless (file-exists-p backup-dir) (make-directory backup-dir t))
+    (unless (file-exists-p auto-save-dir) (make-directory auto-save-dir t)))
+
+#+end_src
+* Packages
+** Initialise Packages
+#+begin_src emacs-lisp
+  (require 'package)
+  (package-initialize)
+  (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+#+end_src
+
+** Local Packages
+#+begin_src emacs-lisp
+  (add-to-list 'load-path (expand-file-name "lisp/" user-emacs-directory))
+#+end_src
+** Configuration
+*** ef-themes
+#+begin_src emacs-lisp
+  (use-package ef-themes
+    :ensure t)
+#+end_src
+
+*** Magit
+#+begin_src emacs-lisp
+  (use-package magit
+    :ensure t)
+#+end_src
+
+*** Ace Jump Mode
+#+begin_src emacs-lisp
+  (use-package ace-jump-mode
+    :ensure t)
+#+end_src
+
+*** Ace Window
+#+begin_src emacs-lisp
+  (use-package ace-window
+    :ensure t
+    :bind ("M-o" . ace-window)
+    :config
+    (setq aw-scope 'frame))
+#+end_src
+
+*** Eglot
+#+begin_src emacs-lisp
+  (use-package eglot
+    :ensure nil
+    :bind (:map eglot-mode-map
+  	      ("C-c l a" . eglot-code-actions)
+  	      ("C-c l r" . eglot-rename)
+  	      ("C-c l f" . eglot-format)))
+#+end_src
+
+*** Duplicate Line Follow
+#+begin_src emacs-lisp
+    (use-package duplicate-line-follow
+      :ensure nil
+      :bind ("C-," . duplicate-line-follow))
+#+end_src
+* External Config
+** Local Configuration
+I use =local.el= to store current preferences such as font and theme
+that i do not wish to upload to git since they would change regularly
+#+begin_src emacs-lisp
+  (load (expand-file-name "local.el" user-emacs-directory) t)
+#+end_src
+
+*** Example
+
+#+begin_src emacs-lisp :tangle no
+  (load-theme 'ef-cherie t)
+  (set-frame-font "Iosevka 600 12" nil t)
+#+end_src
+
+** Custom Configuration
+I do not use customize very much but it still makes sense to put in a
+seperate file
+#+begin_src emacs-lisp
+  (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
+  (load custom-file t)
+#+end_src
+* Tramp Configuration
+#+begin_src emacs-lisp
+  (setq tramp-default-method "ssh")
+#+end_src
