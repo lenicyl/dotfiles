@@ -21,10 +21,12 @@
 #+begin_src emacs-lisp
   (electric-pair-mode t)
 #+end_src
+
 ** Completion
 #+begin_src emacs-lisp
   (global-completion-preview-mode 1)
 #+end_src
+
 ** Backups
 #+begin_src emacs-lisp
   (setq backup-by-copying t
@@ -43,6 +45,7 @@
     (unless (file-exists-p auto-save-dir) (make-directory auto-save-dir t)))
 
 #+end_src
+
 ** Tabs
 Set tab as 4 spaces instead of 2 in =cc-mode= based languages
 #+begin_src emacs-lisp
@@ -61,6 +64,7 @@ Set tab as 4 spaces instead of 2 in =cc-mode= based languages
 #+begin_src emacs-lisp
   (add-to-list 'load-path (expand-file-name "lisp/" user-emacs-directory))
 #+end_src
+
 ** Configuration
 *** ef-themes
 #+begin_src emacs-lisp
@@ -105,6 +109,7 @@ Set tab as 4 spaces instead of 2 in =cc-mode= based languages
       :ensure nil
       :bind ("C-," . duplicate-line-follow))
 #+end_src
+
 * External Config
 ** Local Configuration
 I use =local.el= to store current preferences such as font and theme
@@ -114,10 +119,12 @@ that i do not wish to upload to git since they would change regularly
 #+end_src
 
 *** Example
-
 #+begin_src emacs-lisp :tangle no
   (load-theme 'ef-cherie t)
-  (set-frame-font "Iosevka 600 12" nil t)
+
+  ;; Font is specified as <Font Family>-<Font Size>
+  (add-to-list 'default-frame-alist
+               '(font . "Iosevka 600-12"))
 #+end_src
 
 ** Custom Configuration
@@ -127,6 +134,7 @@ seperate file
   (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
   (load custom-file t)
 #+end_src
+
 * Tramp Configuration
 #+begin_src emacs-lisp
   (setq tramp-default-method "ssh")
