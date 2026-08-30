@@ -21,4 +21,4 @@ ALIAS="$HOME/.config/shell/alias"
 # XDGBASE="$HOME/.config/shell/xdgbase"
 
 [ -f "$ENVIRONMENT" ] && . "$ENVIRONMENT"
-[ -f "$ALIAS" ] 			&& . "$ALIAS"
+[ -f "$ALIAS" ]	      && . "$ALIAS"
