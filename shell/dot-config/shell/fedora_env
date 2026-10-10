@@ -13,16 +13,20 @@ export BROWSER="firefox"
 LS_COLORS=$LS_COLORS:"ow=30;42:"
 
 # Path
-export CARGO_HOME="$HOME/.local/src/cargo"
-export RUSTUP_HOME="$HOME/.local/src/rustup"
+export CARGO_HOME="$HOME/.local/dev/cargo"
+export RUSTUP_HOME="$HOME/.local/dev/rustup"
 export PATH="$HOME/.local/bin:$CARGO_HOME/bin:$PATH"
 
-export ANDROID_SDK_ROOT="$HOME/.local/dev/android"
-export PATH="$ANDROID_SDK_ROOT/cmdline-tools/latest/bin:$PATH"
-export PATH="$ANDROID_SDK_ROOT/platform-tools:$PATH"
+export ANDROID_HOME="$HOME/.local/dev/android"
+export PATH="$ANDROID_HOME/cmdline-tools/latest/bin:$PATH"
+export PATH="$ANDROID_HOME/tools:$PATH"
+export PATH="$ANDROID_HOME/tools/bin:$PATH"
+export PATH="$ANDROID_HOME/platform-tools:$PATH"
 
 export FLUTTER_HOME="$HOME/.local/dev/flutter"
 export PATH="$FLUTTER_HOME/bin:$PATH"
 
 export GEM_HOME="$HOME/.local/dev/gem"
 export PATH="$GEM_HOME/bin:$PATH"
+
+export PATH="$HOME/.local/dev/jdtls/bin:$PATH"
