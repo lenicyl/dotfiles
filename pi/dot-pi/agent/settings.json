@@ -1,0 +1,15 @@
+{
+  "lastChangelogVersion": "1.1.0",
+  "defaultProvider": "google",
+  "defaultModel": "gemini-3.1-pro-preview",
+  "enabledModels": [
+    "google/gemini-3.5-flash-lite",
+    "google/gemini-3.1-flash-lite",
+    "google/gemini-2.5-flash-lite",
+    "google/gemini-3.8-flash",
+    "google/gemini-3.7-flash",
+    "google/gemini-3.6-flash",
+    "google/gemini-2.5-flash"
+  ],
+  "hideThinkingBlock": false
+}
