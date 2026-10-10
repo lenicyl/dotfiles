@@ -16,7 +16,7 @@ input {
 
 output "Samsung Display Corp. 0xC34F Unknown" {
     mode "3840x2160@60.000"
-    scale 2.25
+    scale 2
 }
 
 layout {
