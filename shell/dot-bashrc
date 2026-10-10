@@ -1,8 +1,5 @@
-# This file is sourced by all *interactive* bash shells on startup,
-# including some apparently interactive shells such as scp and rcp
-# that can't tolerate any output.  So make sure this doesn't display
-# anything or bad things will happen !
-
+ENVIRONMENT="$HOME/.config/shell/env"
+[ -f "$ENVIRONMENT" ] && . "$ENVIRONMENT"
 
 # Test for an interactive shell.  There is no need to set anything
 # past this point for scp and rcp, and it's important to refrain from
@@ -12,13 +9,8 @@ if [[ $- != *i* ]] ; then
 	return
 fi
 
-
-# Actual User Configuration
-ENVIRONMENT="$HOME/.config/shell/env"
-ALIAS="$HOME/.config/shell/alias"
-
 # TODO: Complete XDG configuration
 # XDGBASE="$HOME/.config/shell/xdgbase"
 
-[ -f "$ENVIRONMENT" ] && . "$ENVIRONMENT"
+ALIAS="$HOME/.config/shell/alias"
 [ -f "$ALIAS" ]	      && . "$ALIAS"
