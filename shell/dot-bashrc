@@ -14,3 +14,7 @@ fi
 
 ALIAS="$HOME/.config/shell/alias"
 [ -f "$ALIAS" ]	      && . "$ALIAS"
+
+# Foot Terminal integration
+OSC7="$HOME/.config/shell/osc7"
+[ -f "$OSC7" ] && . "$OSC7"
