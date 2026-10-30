@@ -104,6 +104,44 @@
           ]
         }
       ]
+    },
+    "paperinstruments": {
+      "name": "Paper Instruments",
+      "baseUrl": "https://api.paperinstruments.com/v1",
+      "api": "openai-completions",
+      "apiKey": "$PAPERINSTRUMENTS_API_KEY",
+      "models": [
+        {
+          "id": "ultramarine-1-flash",
+          "name": "Ultramarine 1 Flash",
+          "reasoning": true,
+          "thinkingLevelMap": {
+            "off": "low",
+            "minimal": "low",
+            "low": "low",
+            "medium": "high",
+            "high": "high",
+            "xhigh": "max",
+            "max": "max"
+          },
+          "input": [
+            "text",
+            "image"
+          ],
+          "contextWindow": 131072,
+          "maxTokens": 65536,
+          "cost": {
+            "input": 0.15,
+            "output": 0.5,
+            "cacheRead": 0.03,
+            "cacheWrite": 0
+          },
+          "samplingParams": {
+            "temperature": 1,
+            "top_p": 0.95
+          }
+        }
+      ]
     }
   }
 }
