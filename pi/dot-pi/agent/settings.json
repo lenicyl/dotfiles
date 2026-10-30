@@ -1,5 +1,5 @@
 {
-  "lastChangelogVersion": "1.3.0",
+  "lastChangelogVersion": "1.4.0",
   "defaultProvider": "deepseek",
   "defaultModel": "deepseek-flash",
   "enabledModels": [
@@ -9,6 +9,6 @@
     "google/gemini-3.8-flash",
     "google-free/gemini-3.5-flash-lite",
     "google-free/gemini-3.8-flash"
-  ],
+   ],
   "hideThinkingBlock": false
 }
