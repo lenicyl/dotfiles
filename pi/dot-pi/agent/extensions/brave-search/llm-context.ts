@@ -1,30 +1,20 @@
 /**
- * Brave Search — LLM Context API as a pi tool.
+ * Brave LLM Context — the `brave-search` tool.
  *
- * This extension registers two things:
+ * Calls POST /res/v1/llm/context, which returns pre-extracted, relevance-ranked
+ * page content (text chunks, tables, code) instead of links and snippets, so the
+ * model never needs a follow-up fetch. Brave owns the token budget; this module
+ * only normalizes the response, renders it for the model, and shapes the
+ * structured content for programmatic callers.
  *
- * 1. A credential-only model provider named `brave-search`. It has no models, so
- *    it never appears in `/model`, but it makes the built-in `/login brave-search`
- *    prompt for an API key and store it in `~/.pi/agent/auth.json`. `/logout` can
- *    remove it again, and `BRAVE_SEARCH_API_KEY` (or `BRAVE_API_KEY`) works as an
- *    ambient fallback without logging in.
- * 2. The `brave-search` tool, which calls the LLM Context endpoint and returns
- *    pre-extracted, relevance-ranked page content, token-budgeted by Brave.
- *
- * Unlike a classic search API, LLM Context returns the page content itself, so the
- * model never needs a follow-up fetch. Source: https://api-dashboard.search.brave.com/
+ * Docs: https://api-dashboard.search.brave.com/documentation/services/llm-context
  */
 
-import { defineTool, type ExtensionAPI } from "@earendil-works/pi-coding-agent";
+import { defineTool } from "@earendil-works/pi-coding-agent";
 import { Type } from "typebox";
+import { postBraveJson, truncate } from "./shared.ts";
 
-const PROVIDER_ID = "brave-search";
 const ENDPOINT = "https://api.search.brave.com/res/v1/llm/context";
-const REQUEST_TIMEOUT_MS = 30_000;
-/** Brave rate-limits requests in a 1-second sliding window; serialize calls. */
-const MIN_REQUEST_INTERVAL_MS = 1_000;
-/** Hard cap on model-facing text, mirroring the other pi tools. */
-const MAX_CONTENT_CHARS = 48_000;
 
 const TOKEN_MIN = 1_024;
 const TOKEN_MAX = 32_768;
@@ -33,7 +23,7 @@ const TOKEN_DEFAULT = 8_192;
 const FRESHNESS_PATTERN = /^(pd|pw|pm|py|\d{4}-\d{2}-\d{2}to\d{4}-\d{2}-\d{2})$/;
 
 /** Raw response shape (only the fields this tool reads). */
-interface BraveResponse {
+interface BraveContextResponse {
 	grounding?: {
 		generic?: { url?: string; title?: string; snippets?: string[] }[];
 	};
@@ -57,25 +47,15 @@ const outputSchema = Type.Object({
 			url: Type.String(),
 			hostname: Type.String(),
 			published: Type.Optional(Type.String({ description: "Publication date as YYYY-MM-DD when Brave reports one." })),
-			age: Type.Optional(Type.String({ description: "Relative age, e.g. \"392 days ago\"." })),
-			snippets: Type.Array(Type.String({ description: "Extracted page chunk; may contain JSON-serialized tables or code." })),
+			age: Type.Optional(Type.String({ description: 'Relative age, e.g. "392 days ago".' })),
+			snippets: Type.Array(
+				Type.String({ description: "Extracted page chunk; may contain JSON-serialized tables or code." }),
+			),
 		}),
 	),
 	truncated: Type.Boolean({ description: "True when the rendered text was cut to fit the tool output cap." }),
 	tokens: Type.Integer({ description: "Token budget requested from Brave." }),
 });
-
-function delay(ms: number): Promise<void> {
-	return new Promise((resolve) => setTimeout(resolve, ms));
-}
-
-let lastRequestAt = 0;
-
-async function waitForRateLimitSlot(): Promise<void> {
-	const wait = lastRequestAt + MIN_REQUEST_INTERVAL_MS - Date.now();
-	if (wait > 0) await delay(wait);
-	lastRequestAt = Date.now();
-}
 
 /**
  * Brave returns snippets as plain text or as JSON-serialized structured data
@@ -102,22 +82,7 @@ function readDates(age: string[] | undefined): { published?: string; relative?: 
 	return { published, relative };
 }
 
-function truncate(text: string): { text: string; truncated: boolean } {
-	if (text.length <= MAX_CONTENT_CHARS) return { text, truncated: false };
-	const candidate = text.lastIndexOf("\n", MAX_CONTENT_CHARS);
-	const end = candidate > MAX_CONTENT_CHARS * 0.8 ? candidate : MAX_CONTENT_CHARS;
-	return {
-		text: `${text.slice(0, end).trimEnd()}\n\n[truncated at ${end} of ${text.length} characters — narrow the query or lower the token budget]`,
-		truncated: true,
-	};
-}
-
-function renderText(
-	query: string,
-	results: NormalizedResult[],
-	tokens: number,
-	filters: string[],
-): string {
+function renderText(query: string, results: NormalizedResult[], tokens: number, filters: string[]): string {
 	if (results.length === 0) {
 		const suffix = filters.length > 0 ? ` (${filters.join(", ")})` : "";
 		return `Brave found no usable content for "${query}"${suffix}. Try broader terms, or drop the filters.`;
@@ -138,21 +103,7 @@ function renderText(
 	return [header, ...blocks].join("\n\n");
 }
 
-async function readError(response: Response): Promise<string> {
-	const raw = await response.text().catch(() => "");
-	try {
-		const body = JSON.parse(raw) as { error?: { code?: string; detail?: string } };
-		const code = body.error?.code;
-		const detail = body.error?.detail;
-		if (code || detail) return [code, detail].filter(Boolean).join(": ").replace(/\.+$/, "");
-	} catch {
-		// Not JSON; fall back to a truncated body preview.
-	}
-	const preview = raw.trim().slice(0, 200);
-	return preview || response.statusText || "unknown error";
-}
-
-const braveSearchTool = defineTool({
+export const braveLlmContextTool = defineTool({
 	name: "brave-search",
 	label: "Brave Search",
 	description:
@@ -169,7 +120,7 @@ const braveSearchTool = defineTool({
 		q: Type.String({
 			minLength: 1,
 			maxLength: 400,
-			description: "Search query. Supports operators such as site: and exact \"quoted\" terms.",
+			description: 'Search query. Supports operators such as site: and exact "quoted" terms.',
 		}),
 		freshness: Type.Optional(
 			Type.String({
@@ -194,18 +145,9 @@ const braveSearchTool = defineTool({
 		),
 	}),
 	outputSchema,
-	executionMode: "sequential",
 	annotations: { readOnlyHint: true, openWorldHint: true },
 
 	async execute(_toolCallId, params, signal, _onUpdate, ctx) {
-		const key =
-			(await ctx.modelRegistry.getApiKeyForProvider(PROVIDER_ID)) ?? process.env.BRAVE_API_KEY?.trim() ?? undefined;
-		if (!key) {
-			throw new Error(
-				"Brave Search is not configured. Run /login brave-search to save an API key, or set BRAVE_SEARCH_API_KEY.",
-			);
-		}
-
 		const freshness = params.freshness?.trim();
 		if (freshness && !FRESHNESS_PATTERN.test(freshness)) {
 			throw new Error(
@@ -221,51 +163,13 @@ const braveSearchTool = defineTool({
 		if (freshness) body.freshness = freshness;
 		if (params.threshold) body.context_threshold_mode = params.threshold;
 
-		const timeout = AbortSignal.timeout(REQUEST_TIMEOUT_MS);
-		const requestSignal = signal ? AbortSignal.any([signal, timeout]) : timeout;
-
-		await waitForRateLimitSlot();
-
-		let response: Response;
-		try {
-			response = await fetch(ENDPOINT, {
-				method: "POST",
-				headers: {
-					Accept: "application/json",
-					"Content-Type": "application/json",
-					"X-Subscription-Token": key,
-				},
-				body: JSON.stringify(body),
-				signal: requestSignal,
-			});
-		} catch (error) {
-			if (requestSignal.aborted) {
-				throw new Error(`Brave Search request aborted after ${REQUEST_TIMEOUT_MS / 1000}s.`);
-			}
-			const message = error instanceof Error ? error.message : String(error);
-			throw new Error(`Brave Search request failed: ${message}`);
-		}
-
-		if (!response.ok) {
-			const detail = await readError(response);
-			if (response.status === 401 || response.status === 403 || response.status === 422) {
-				throw new Error(
-					`Brave Search rejected the API key (HTTP ${response.status}): ${detail}. Run /login brave-search to update it.`,
-				);
-			}
-			if (response.status === 429) {
-				throw new Error(`Brave Search rate limit reached (HTTP 429): ${detail}. Wait a moment and retry.`);
-			}
-			throw new Error(`Brave Search failed with HTTP ${response.status}: ${detail}`);
-		}
-
-		let payload: BraveResponse;
-		try {
-			payload = (await response.json()) as BraveResponse;
-		} catch (error) {
-			const message = error instanceof Error ? error.message : String(error);
-			throw new Error(`Brave Search returned a response that could not be parsed: ${message}`);
-		}
+		const { data: payload, rateLimit } = await postBraveJson<BraveContextResponse>({
+			endpoint: ENDPOINT,
+			plan: "search",
+			body,
+			signal,
+			ctx,
+		});
 
 		const sources = payload.sources ?? {};
 		const results: NormalizedResult[] = (payload.grounding?.generic ?? []).map((entry) => {
@@ -280,7 +184,9 @@ const braveSearchTool = defineTool({
 					hostname = url;
 				}
 			}
-			const snippets = (entry.snippets ?? []).map((snippet) => snippet.trim()).filter((snippet) => snippet.length > 0);
+			const snippets = (entry.snippets ?? [])
+				.map((snippet) => snippet.trim())
+				.filter((snippet) => snippet.length > 0);
 			const result: NormalizedResult = {
 				title: (entry.title ?? meta.title ?? "").trim(),
 				url,
@@ -305,6 +211,8 @@ const braveSearchTool = defineTool({
 				resultCount: results.length,
 				truncated: rendered.truncated,
 				tokens,
+				perSecondLimit: rateLimit.perSecond,
+				quotaRemaining: rateLimit.monthlyRemaining,
 			},
 			structuredContent: {
 				query: params.q,
@@ -315,14 +223,3 @@ const braveSearchTool = defineTool({
 		};
 	},
 });
-
-export default function braveSearchExtension(pi: ExtensionAPI) {
-	// Credential-only provider: no models, but `/login brave-search` and `/logout`
-	// work through pi's normal auth flow and store the key in auth.json.
-	pi.registerProvider(PROVIDER_ID, {
-		name: "Brave Search",
-		apiKey: "$BRAVE_SEARCH_API_KEY",
-	});
-
-	pi.registerTool(braveSearchTool);
-}
