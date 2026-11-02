@@ -23,6 +23,7 @@ import path from "node:path";
 import { RealFSProvider, VM } from "@earendil-works/gondolin";
 import type { ExtensionAPI, ExtensionContext } from "@earendil-works/pi-coding-agent";
 import { createHarnessMounts } from "./mounts.ts";
+import { applyGondolinSystemPrompt, detectGuestOs } from "./prompt.ts";
 import {
 	type BashOperations,
 	createBashTool,
@@ -376,6 +377,7 @@ export default function (pi: ExtensionAPI) {
 	let vm: VM | undefined;
 	let vmStarting: Promise<VM> | undefined;
 	let shellPath = "/bin/sh";
+	let guestOs = "Linux";
 
 	async function startVm(ctx?: ExtensionContext): Promise<VM> {
 		ctx?.ui.setStatus("gondolin", ctx.ui.theme.fg("accent", `Gondolin: starting ${GUEST_WORKSPACE}`));
@@ -390,6 +392,7 @@ export default function (pi: ExtensionAPI) {
 		});
 		const bashProbe = await created.exec(["/bin/sh", "-lc", "command -v bash || true"]);
 		shellPath = bashProbe.stdout.trim() || "/bin/sh";
+		guestOs = await detectGuestOs(created);
 		vm = created;
 		ctx?.ui.setStatus(
 			"gondolin",
@@ -523,11 +526,10 @@ export default function (pi: ExtensionAPI) {
 
 	pi.on("before_agent_start", async (event, ctx) => {
 		await ensureVm(ctx);
-		const localLine = `Current working directory: ${localCwd}`;
-		const guestLine = `Current working directory: ${GUEST_WORKSPACE} (Gondolin VM; host workspace mounted from ${localCwd})`;
-		const systemPrompt = event.systemPrompt.includes(localLine)
-			? event.systemPrompt.replace(localLine, guestLine)
-			: `${event.systemPrompt}\n\n${guestLine}`;
-		return { systemPrompt };
+		applyGondolinSystemPrompt(event.systemPromptOptions.sections, {
+			localCwd,
+			guestWorkspace: GUEST_WORKSPACE,
+			guestOs,
+		});
 	});
 }
