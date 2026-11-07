@@ -1,0 +1,20 @@
+[font.bold]
+family = "Iosevka Extended"
+style = "Bold"
+
+[font.bold_italic]
+family = "Iosevka Extended"
+style = "Bold Italic"
+
+[font.italic]
+family = "Iosevka Extended"
+style = "Italic"
+
+[font.normal]
+family = "Iosevka Extended"
+style = "Regular"
+
+[keyboard]
+bindings = [
+    { key = "N", mods = "Control|Shift", action = "SpawnNewInstance" }
+]
